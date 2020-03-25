@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>VDoc - Responsive Documentation HTML Template</title>
+    <meta name="description" content="Free responsive HTML template for your documentation">
+    <meta name="author" content="valthemes.com">
+    <meta name="format-detection" content="telephone=no">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/prettify.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" >
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2 col-xs-12 left">
+					<div id="logo">
+						<img src="images/solid.png" alt="vdoc">
+					</div>
+				</div>
+				<div class="col-lg-8 col-md-7 col-xs-12">
+					<div class="slogan">
+						<h2>SOLID - Principles 	</h2>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-3 col-xs-12 right">
+				</div>
+			</div>
+		</div>
+	</header>
+	<section class="content">
+		<div class="container">
+			<div class="content-wrap">
+				<div class="row">
+					<aside>
+						<div class="menu-box">
+							<h4>SOLID - Introduction</h4>	
+							<nav>
+								<ul>
+									<li><a href="#SRP">Single Responsability Principle</a></li>
+									<li><a href="#OCP">Open Closed Principle</a></li>
+									<li><a href="#LSP">Liskov Substitucion Principle</a></li>
+									<li><a href="#ISP">Interface Segregation Principle</a></li>
+									<li><a href="#DIP">Dependency Inversion Principle</a></li>
+								</ul>					
+							</nav>
+						</div>
+					</aside>
+					<div class="content-info">
+						<h2>Introduction</h2>
+						<p>SOLID is an acronym that represents five principles very important when we develop with the OOP paradigm, in addition it is an essential knowledge that every developer must know.</p>
+						<p>Understanding and applying these principles will <strong>allow you to write better quality code</strong> and the therefore be a better develop</p> 
+						<p>The SOLID principles were defined in the early 2000s by Robert C Martin (Uncle Bob). Uncle Bob elaborated some of these and identified others already existing and said that these principles should be used to get a good management of dependencies in our code.</p>					
+						<p>However, in the begining these principle were not yet known as SOLID until Michael Feathers observed that the initials of these principles fit perfectly under the acronym SOLID and that it was also a very representative name for iths definition.</p>	
+						<p> These principles help us to obtain the following benefits:
+							<ul> 
+								<li>Ease to maintain.</li>
+								<li>Ease to extend.</li>
+								<li>Robust code.</li>														
+							</ul>							
+						</p>
+						<p>But before we see what each SOLID principle means, we need to remember two relevant concepts in the development of any software, The <strong>COUPLING</strong> and the <strong>COHESION.</strong></p>
+
+						<p> <strong>COUPLING:</strong>
+								We can define it as the degree to wich a class, method or any other software entity, is directly linked to another. This degree of coupling can also be seen as a degree of dependence.</p>
+						<p> <strong> COHESION:</strong>
+								Is the measuare in which two or more partes of a sustem work together to obtain better results than each part individually</p>
+								<ul>
+									<li>S - Single Responsability Principle</li>
+									<li>O - Open Closed Principle</li>
+									<li>L - Lisko Substitucion Principle</li>
+									<li>I - Interface Segregation Principle</li>
+									<li>D - Dependency Inversion Principle</li>										
+								</ul>																								
+						<div class="section-txt" id="SRP">
+							<h3 style="color:blue">S - Single Responsibility Principle - SRP</h3>
+							<h5>"A class should have only one reason to change"</h5>
+							<p>This principle means that a class must have only one responsibility and do only the task for which it has been designed</p>							
+							<p>Otherwise, if our class assumes more than one responsibility we will have a high coupling causing our code to be fragile with any changes.</p>
+							<p>Benefits:</p>
+							<ul>
+								<li>Coupling reduced</li>
+								<li>Code easir to understand and mantain</li>								
+							</ul>
+							<h4 style="color: red">Volation RSP:</h4>
+
+							<p>We have a Customer class that has more than one responsibility.</p>
+							<img src="images/SRP-Violation-SRP.png">
+							<p> * <strong>saveCustomer(String customerName)</strong> has the responsibility of store a Customer into the database so it is a responsability of persistence and should be out of Customer class <br>
+								* <strong>generateCustomerBalance(String customername)</strong> Has the responsibility og generating a balance about Customer so also should  be out of Customer class</p>								
+							<p>When a class has multiple respomsabilities  it is more dificult to understand, extend and modify</p>
+						
+							<h4 style="color: green"><strong>Correct solution</strong></h4>
+							<p>We create different classes for each responsibility.</p>
+							 <strong>Customer</strong> class:
+							<img src="images/SRP-Correct1-SRP.png">
+							<strong>CustomerDB</strong> class: for the persistence responsibility
+							<img src="images/SRP-Correct2-SRP.png">
+							<strong>CustomerBalanceGenerator</strong> class - for the generate balance responsibility.
+							<img src="images/SRP-Correct3-SRP.png">
+							<p>With this solution, we have some clasess but each class with a single responsability so we get a low coupling and high cohesion.</p>
+												
+						</div>
+						<div class="section-txt" id="OCP">
+							<h3 style="color:blue">O -Open Closed Principle - OCP</h3>
+							<h5>"Software entities (classes, modules, functions, etc) should be open for extension, but closed for modification."</h5>							
+							<p>According to this principle, a software entiry must easily extensible with new features without having to modify its existing code in use.</p>						
+							<p><strong>Open for extensión:</strong> new behaviour can be added to satisfy the new requirements <br>
+							   <strong>Close for modification:</strong> to extending the new behaviour are not required modify the existing code.
+							</p>
+							<p> If we apply this principle we will get extensiuble systems that will be less prone to errors whenever the requirements are changed. We can use the abstraction and polymorphism to help us apply this principle.</p>
+							<p>Benefits:</p>
+							<ul>
+								<li>Code maintainable and reusable</li>
+								<li>Code more robust</li>								
+							</ul>	
+							<h4 style="color: red">Volation OCP:</h4>
+							<p>We have a <strong>Rectangle</strong> class.</p>
+							<img src="images/OCP-Incorrect1.png">
+							<p>Also, we have a <strong>Square</strong> class.</p>
+							<img src="images/OCP-Incorrect2.png">
+							<p>And we have a SharePrinter class that draws several types of shapes:</p>
+							<img src="images/OCP-Incorrect3.png">
+						</div>
+
+
+						<div class="section-txt" id="LSP">
+							<h3>Liskov Substitution Principle</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis interdum sapien, vitae convallis ante. Nunc id mi scelerisque, laoreet nisl pretium, suscipit nisi. Proin porta tortor tellus, sed condimentum ligula aliquet sit amet. Mauris nulla ipsum, tempor eu vulputate ut, placerat ac tortor. Integer ut tincidunt magna. Suspendisse risus nulla, tempus a interdum et, imperdiet iaculis lectus. Maecenas ultrices diam eu massa maximus viverra.</p>
+							
+						</div>
+						<div class="section-txt" id="ISP">
+							<h3>Interface Segregation Principle</h3>
+							
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis interdum sapien, vitae convallis ante. Nunc id mi scelerisque, laoreet nisl pretium, suscipit nisi. Proin porta tortor tellus, sed condimentum ligula aliquet sit amet. Mauris nulla ipsum, tempor eu vulputate ut, placerat ac tortor. Integer ut tincidunt magna. Suspendisse risus nulla, tempus a interdum et, imperdiet iaculis lectus. Maecenas ultrices diam eu massa maximus viverra.</p>
+						
+							<p>Integer quis dignissim purus. Nam convallis mattis mi at venenatis. Donec vitae leo leo. Praesent auctor, nisi non fringilla dapibus, felis sem pretium enim, sed volutpat lectus turpis vitae orci. Vivamus vel interdum risus. Phasellus ullamcorper placerat nulla ut dictum. Proin tristique congue elit, in ullamcorper dolor dictum ut. Aenean commodo et odio semper mollis.</p>
+						</div>
+						<div class="section-txt" id="DIP">
+							<h3>Dependency Inversion Principle</h3>
+						
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis interdum sapien, vitae convallis ante. Nunc id mi scelerisque, laoreet nisl pretium, suscipit nisi. Proin porta tortor tellus, sed condimentum ligula aliquet sit amet. Mauris nulla ipsum, tempor eu vulputate ut, placerat ac tortor. Integer ut tincidunt magna. Suspendisse risus nulla, tempus a interdum et, imperdiet iaculis lectus. Maecenas ultrices diam eu massa maximus viverra.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 center">
+					Developed by Alejandro Vargas Alvarez© 2020. All rights reserved.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/prettify.min.js"></script>
+	<script src="js/scripts.min.js"></script>
+</body>
+</html>
