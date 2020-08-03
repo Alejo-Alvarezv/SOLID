@@ -21,18 +21,19 @@ We can define it as the degree to wich a class, method or any other software ent
 ##### COHESION
 Is the measuare in which two or more partes of a sustem work together to obtain better results than each part individually
 
-**S** - Single Responsability Principle
-**O** - Open Closed Principle
-**L** - Lisko Substitucion Principle
-**I** - Interface Segregation Principle
-**D** - Dependency Inversion Principle
+* **S** - Single Responsability Principle
+* **O** - Open Closed Principle
+* **L** - Lisko Substitucion Principle
+** *I** - Interface Segregation Principle
+* **D** - Dependency Inversion Principle
 
 ## Single Responsability Principle (SRP)
 A class should have a single function.
 
 A class should be responsible for only one thing. The moment it acquires more responsibility it becomes docked, something that is not desirable if you want to ensure the maintenance of the application. This is because changing one of your responsibilities may affect the other and vice versa.
 
-![](https://github.com/Alejo-Alvarezv/SOLID/blob/master/images/SRP1.jpg)
+```ssh
+
 class Vehicle {
 
     String brand;
@@ -49,6 +50,7 @@ class Vehicle {
         //Implementation for save into database...
       }     
 }
+```
 
 This class violates SRP. Why? The single responsibility principle states that each class should have a single function. However, the class **Vehicle** handles both properties ( getVehicleIdentifier) and database storage ( saveVehicle). This means that if, for example, a change occurs in the storage system of our application, it is likely to affect the way in which the properties are managed, forcing us to change the class Vehicleas well as the classes that are using it.
 
@@ -56,9 +58,8 @@ In other words, the SRP establishes a high degree of stiffness , so that there i
 
 One way to solve the previous example would be the following:
 
-![](https://github.com/Alejo-Alvarezv/SOLID/blob/master/images/SRP2.jpg)
-
 ```ssh
+
 class Vehicle {
     String brand;
 
