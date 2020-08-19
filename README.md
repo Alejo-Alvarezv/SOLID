@@ -27,6 +27,8 @@ Is the measuare in which two or more partes of a sustem work together to obtain 
 ** *I** - Interface Segregation Principle
 * **D** - Dependency Inversion Principle
 
+![Logo](https://github.com/Alejo-Alvarezv/SOLID/blob/master/images/intro.png)
+
 ## Single Responsability Principle (SRP)
 A class should have a single function.
 
@@ -83,18 +85,106 @@ class VehicleDB {
 
 ## Open-Closed Principle
 
-Classes should be open to extension but closed to modification.
-
-The software Establishes that the entities (classes, modules and functions) are open for extension, but closed for modification.
+It establishes that the software entities (classes, modules and functions) should be open for their extension, but closed for their modification.
 
 Let's continue with our class **Vehicle**:
 
-IMAGE
+If we wanted to iterate through a list of vehicles and print their marks on the screen:
 
-If we wanted to iterate through a list of cars and print their marks on the screen:
+```ssh
+class Vehicle {  
+    String brand;
 
-IMAGE
+    Vehicle(String brand){ this.brand = brand; }
 
+    String getBrandVehicle(){ return brand; }
+}
+```
 
+If we wanted to iterate through a list of vehicle and print their brands on the screen:
 
+```ssh
+public static void main(String[] args) {  
+    Vehicle[] arrayVehicles = {
+            new Vehicle("Ford"),
+            new Vehicle("Audi")
+    };
+    printAveragePriceVehicle(arrayVehicles);
+}
+
+public static void printAveragePriceVehicle(Vehicle[] arrayVehicles){  
+    for (Vehicle vehicle : arrayVehicles) {
+        if(vehicle.brand.equals("Ford")) System.out.println(18000);
+        if(vehicle.brand.equals("Audi")) System.out.println(25000);
+    }
+}
+```
+
+This would not fulfill the open / closed principle, since if we decide to add a new vehicle from another brand:
+```ssh
+Vehicle[] arrayVehicles = {  
+    new Vehicle("Ford"),
+    new Vehicle("Audi"),
+    new Vehicle("Mercedes")
+};
+```
+We would also have to modify the method that we created previously:
+```ssh
+public static void printAveragePriceVehicle(Vehicle[] arrayVehicle){  
+    for (Vehicle vehicle : arrayVehicle) {
+        if(vehicle.brand.equals("Ford")) System.out.println(18000);
+        if(vehicle.brand.equals("Audi")) System.out.println(25000);
+        if(vehicle.brand.equals("Mercedes")) System.out.println(27000);
+    }
+}
+```
+
+As we can see, for each new car new logic would have to be added to the printAveragePriceVehicle () method. This is a simple example, but imagine that your application grows and grows… how many modifications would we have to make? Better to avoid this waste of time and headache, right?
+
+To comply with this principle we could do the following:
+
+```ssh
+abstract class Vehicle {  
+    // ...
+    abstract int averagePriceVehicle();
+}
+
+class Ford extends Vehicle {  
+    @Override
+    int averagePriceVehicle() { return 18000; }
+}
+
+class Audi extends Vehicle {  
+    @Override
+    int averagePriceVehicle() { return 25000; }
+}
+
+class Mercedes extends Vehicle {  
+    @Override
+    int averagePriceVehicle() { return 27000; }
+}
+
+public static void main(String[] args) {
+
+    Vehicle[] arrayVehicles = {
+            new Ford(),
+            new Audi(),
+            new Mercedes()
+    };
+
+    printAveragePriceVehicle(arrayVehicles);
+}
+
+public static void printAveragePriceVehicle(Vehicle[] arrayVehicles){  
+    for (Vehicle vehicle : arrayVehicles) {
+        System.out.println(vehicle.averagePriceVehicle());
+    }
+}
+```
+
+Each vehicle extends the abstract class **Vehicle** and implements the abstract method averagePriceVehicle().
+
+Thus, each vehicle has its own implementation of the averagePriceVehicle () method, so the printAveragePriceVehicle () method iterates through the array of vehicles and only calls the averagePriceVehicle() method.
+
+Now, if we add a new vehicle, averagePriceVehicle () will not have to be modified. We will only have to add the new vehicle to the array, thus fulfilling the open / closed principle.
 
