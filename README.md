@@ -188,3 +188,92 @@ Thus, each vehicle has its own implementation of the averagePriceVehicle () meth
 
 Now, if we add a new vehicle, averagePriceVehicle () will not have to be modified. We will only have to add the new vehicle to the array, thus fulfilling the open / closed principle.
 
+## Liskov Substitution Principle
+
+
+It declares that a subclass must be substitutable for its superclass, and if by doing this the program crashes, we are violating this principle.
+
+Fulfilling this principle, it will be confirmed that our program has an easy to understand class hierarchy and reusable code.
+
+Let's see an example:
+```ssh
+// ...
+public static void printnNumbersSeats(Vehicle[] arrayVehicles){  
+    for (Vehicle vehicle : arrayVeicles) {
+        if(vehicle instanceof Ford)
+            System.out.println(numSeatsFord(vehicle));
+        if(vehicle instanceof Audi)
+            System.out.println(numSeatsAudi(vehicle));
+        if(vehicle instanceof Mercedes)
+            System.out.println(numSeatsMercedes(vehicle));
+    }
+}
+printNumSeats(arrayVehicles); 
+```
+
+This violates both the Liskov substitution principle and the open / closed principle. The program must know each type of vEHICLE and call its associated numSeats () method.
+
+Thus, if we add a new Vvehicle, the method must be modified to accept it.
+
+```ssh
+// ...
+Vehicle[] arrayVehicles = {  
+        new Ford(),
+        new Audi(),
+        new Mercedes(),
+        new Ferrari()
+};
+
+public static void printnNumbersSeats(Coche[] arrayVehicles){  
+    for (Vehicle vehicle : arrayVehicles) {
+        if(vehicle instanceof Ford)
+            System.out.println(numASeatsFord(vehicle));
+        if(vehicle instanceof Audi)
+            System.out.println(numSeatsAudi(vehicle));
+        if(vehicle instanceof Mercedes)
+            System.out.println(numSeatssMercedes(vehicle));
+        if(vehicle instanceof Ferrari)
+            System.out.println(numSeatsFerrari(vehicle));
+    }
+}
+printnNumbersSeats(arrayVehicles);  
+```
+
+For this method to comply with the principle, we will follow these principles:
+
+If the superclass (Vehicle) has a method that accepts a parameter of the type of the superclass (Vehicle), then its subclass (Ford) should accept as an argument a type of the superclass (Vehicle) or a type of the subclass (Ford).
+If the superclass returns a type of itself (Vehicle), then its subclass (Ford) should return a type of the superclass (Vehicle) or a type of the subclass (Ford).
+If we implement the previous method again:
+
+```ssh
+public static void printnNumbersSeats(Vehicle[] arrayVehicles){  
+        for (Vehicle vehicle : arrayvehicles) {
+            System.out.println(vehicle.numSeats());
+        }
+    }
+
+printnNumbersSeats(arrayVehicles); 
+```
+Now the method doesn't care about the class's type, it just calls the superclass's numSeats () method. It only knows that the parameter is of type vehicle, either Vehicle or one of the subclasses.
+
+For this, now the Vehicle class must define the new method:
+```ssh
+abstract class Vehicle {
+
+    // ...
+    abstract int numSeats();
+}
+```
+And the subclasses must implement such a method:
+```ssh
+class Ford extends Vehicle {
+
+    // ...
+    @Override
+    int numSeats() {
+        return 5;
+    }
+}
+// ...
+```
+As we can see, now the printnNumbersSeats () method does not need to know what type of car it is going to perform its logic with, it simply calls the method numSeats () of the Vehicle type, since by contract, a subclass of Vehicle must implement said method.
