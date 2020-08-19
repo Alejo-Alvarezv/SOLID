@@ -83,7 +83,7 @@ class VehicleDB {
 }
 ```
 
-## Open-Closed Principle
+## Open-Closed Principle (OCP)
 
 It establishes that the software entities (classes, modules and functions) should be open for their extension, but closed for their modification.
 
@@ -188,7 +188,7 @@ Thus, each vehicle has its own implementation of the averagePriceVehicle () meth
 
 Now, if we add a new vehicle, averagePriceVehicle () will not have to be modified. We will only have to add the new vehicle to the array, thus fulfilling the open / closed principle.
 
-## Liskov Substitution Principle
+## Liskov Substitution Principle (LSP)
 
 
 It declares that a subclass must be substitutable for its superclass, and if by doing this the program crashes, we are violating this principle.
@@ -277,3 +277,208 @@ class Ford extends Vehicle {
 // ...
 ```
 As we can see, now the printnNumbersSeats () method does not need to know what type of car it is going to perform its logic with, it simply calls the method numSeats () of the Vehicle type, since by contract, a subclass of Vehicle must implement said method.
+
+## Interface Segregation Principle (ISP)
+This principle states that clients should not be forced to rely on interfaces they do not use.
+
+In other words, when a client depends on a class that implements an interface whose functionality this client does not use, but which other clients do use, this client will be affected by the changes that other clients force on that interface.
+
+Let's imagine that we want to define the necessary classes to house some types of birds. For example, we would have parrots, toucans, and hawks:
+```ssh
+interface IBird {  
+    void fly();
+    void eat();
+}
+
+class Parrot implements IBird{
+
+    @Override
+    public void fly() {
+        //...
+    }
+
+    @Override
+    public void eat() {
+        //..
+    }
+}
+
+class Hawk implements IBird{  
+    @Override
+    public void fly() {
+        //...
+    }
+
+    @Override
+    public void eat() {
+        //..
+    }
+}
+```
+So far so good. But now let's imagine we want to add the penguins. These are birds, but they also have the ability to swim. We could do this:
+```ssh
+interface IBird {  
+    void fly();
+    void eat();
+    void swim();
+}
+
+class Parrot implements IBird{
+
+    @Override
+    public void fly() {
+        //...
+    }
+
+    @Override
+    public void eat() {
+        //...
+    }
+
+    @Override
+    public void swim() {
+        //...
+    }
+}
+
+class Penguin implements IBird{
+
+    @Override
+    public void fly() {
+        //...
+    }
+
+    @Override
+    public void comer() {
+        //...
+    }
+
+    @Override
+    public void eat() {
+        //...
+    }
+}
+```
+
+The problem is that the parrot does not swim, and the penguin does not fly, so we would have to add an exception or warning if we try to call these methods. Furthermore, if we wanted to add another method to the IAve interface, we would have to go through each of the classes that implements it and add the implementation of that method to all of them. This violates the principle of interface segregation, since these classes (the clients) do not have to depend on methods they do not use.
+
+The best thing to do would be to segregate the interfaces further, as necessary. In this case we could do the following:
+
+```ssh
+interface IBird {  
+    void eat();
+}
+interface IFlyingBird {  
+    void fly();
+}
+
+interface ISwimmingBird {  
+    void swim();
+}
+
+class Parrot implements IBird, IFlyingBird{
+
+    @Override
+    public void fly() {
+        //...
+    }
+
+    @Override
+    public void eat() {
+        //...
+    }
+}
+
+class Penguin implements IBird, ISwimmingBird{
+
+    @Override
+    public void swim() {
+        //...
+    }
+
+    @Override
+    public void eat() {
+        //...
+    }
+}
+```
+Thus, each class implements the interfaces of which it really needs to implement its methods. When adding new functionalities, this will save us a lot of time, and in addition, we comply with the first principle (Single Responsibility).
+
+## Dependency Inversion Principle (DIP)
+
+It states that the dependencies must be in the abstractions, not in the concretions. That is to say:
+
+* High-level modules should not rely on low-level modules. Both should depend on abstractions.
+* Abstractions shouldn't depend on details. Details should depend on abstractions.
+At some point our program or application will become made up of many modules. When this happens, it is when we must use dependency injection, which will allow us to control the functionalities from a specific place instead of having them spread throughout the program. Furthermore, this isolation will allow us to perform testing much more easily.
+
+Suppose we have a class to access data, and we do it through a DB:
+```ssh
+class DatabaseService{  
+    //...
+    void getData(){ //... }
+}
+
+class AccessData {
+
+    private DatabaseService databaseService;
+
+    public AccessData(DatabaseService databaseService){
+        this.databaseService = databaseService;
+    }
+
+    Dato getData(){
+        databaseService.getDatos();
+        //...
+    }
+}
+```
+
+Let's imagine that in the future we want to change the DB service for a service that connects to an API. For a minute to think what should be done ... Do you see the problem? We would have to modify all the instances of the AccesoADatos class, one by one.
+
+This is because our high-level module (AccesoADatos) depends on a lower-level module (DatabaseService), thus violating the principle of dependency inversion. The high-level module should depend on abstractions.
+
+To fix this, we can make the DataAccess module depend on a more generic abstraction
+```ssh
+interface Connection {  
+    Data getData();
+    void setData();
+}
+
+class AccessData {
+
+    private Connection conectionn;
+
+    public AccessData(Connection connection){
+        this.connection = connection;
+    }
+
+    Data getData(){
+        connection.getData();
+    }
+}
+```
+
+Thus, regardless of the type of connection that is passed to the AccessData module, neither it nor its instances will have to change, so we will save a lot of work.
+
+Now, each service that we want to pass to AccessData must implement the Connection interface:
+```ssh
+class DatabaseService implements connection {
+
+    @Override
+    public Data getData() { //... }
+
+    @Override
+    public void setData) { //... }
+}
+
+class APIService implements Connection{
+
+    @Override
+    public Data getData() { //... }
+
+    @Override
+    public void setData() { //... }
+}
+```
+Thus, both the high-level and low-level modules depend on abstractions, so we comply with the principle of inversion of dependencies. Furthermore, this will force us to comply with the Liskov principle, since the types derived from Connection (DatabaseService and APIService) are substitutable by their abstraction (Connection interface).
