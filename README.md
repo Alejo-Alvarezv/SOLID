@@ -1,5 +1,5 @@
 
-![Logo](https://github.com/Alejo-Alvarezv/SOLID/blob/master/images/image1.jpg)
+![Logo](https://github.com/alejoalvarez/SOLID/blob/master/images/image1.jpg)
 
 **SOLID** is an acronym that represents five principles very important when we develop with the **OOP** paradigm, in addition it is an essential knowledge that every developer must know.
 Understanding and applying these principles will allow you to write better quality code and the therefore be a better develop
