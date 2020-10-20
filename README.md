@@ -1,5 +1,5 @@
 
-![Logo](https://github.com/alejoalvarezv/SOLID/blob/master/images/image1.jpg)
+![Logo](https://github.com/alejoalvarez/SOLID/blob/master/images/image1.jpg)
 
 **SOLID** is an acronym that represents five principles very important when we develop with the **OOP** paradigm, in addition it is an essential knowledge that every developer must know.
 Understanding and applying these principles will allow you to write better quality code and the therefore be a better develop
@@ -27,7 +27,7 @@ Is the measuare in which two or more partes of a sustem work together to obtain 
 ** *I** - Interface Segregation Principle
 * **D** - Dependency Inversion Principle
 
-![Logo](https://github.com/Alejo-Alvarezv/SOLID/blob/master/images/intro.png)
+![Logo](https://github.com/alejoalvarez/SOLID/blob/master/images/intro.png)
 
 ## Single Responsability Principle (SRP)
 A class should have a single function.
