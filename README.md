@@ -1,5 +1,10 @@
+# SOLID
 
-![Logo](https://github.com/alejoalvarez/SOLID/blob/master/images/image1.jpg)
+Explanation about the SOLID principles
+
+<p align="center">
+<img height="570" width="1572" alt="Image1" src="https://user-images.githubusercontent.com/13514156/120488978-df9e8100-c37c-11eb-80ec-e1fc38f0f19d.jpeg">
+</p>
 
 **SOLID** is an acronym that represents five principles very important when we develop with the **OOP** paradigm, in addition it is an essential knowledge that every developer must know.
 Understanding and applying these principles will allow you to write better quality code and the therefore be a better develop
@@ -9,32 +14,37 @@ The SOLID principles were defined in the early 2000s by Robert C Martin (Uncle B
 However, in the begining these principle were not yet known as SOLID until Michael Feathers observed that the initials of these principles fit perfectly under the acronym SOLID and that it was also a very representative name for iths definition
 
 These principles help us to obtain the following benefits:
-	• Ease to maintain
-	• Ease to extend
-	• Robust code
+- Ease to maintain
+- Ease to extend
+- Robust code
 
 But before we see what each SOLID principle means, we need to remember two relevant concepts in the development of any software, The **COUPLING** and the **COHESION**
 
-##### COUPLING:
+```COUPLING:```
 We can define it as the degree to wich a class, method or any other software entity, is directly linked to another. This degree of coupling can also be seen as a degree of dependence.
 
-##### COHESION
+```COHESION:```
 Is the measuare in which two or more partes of a sustem work together to obtain better results than each part individually
+
+## The SOLID principles
+
+<p align="center">
+<img height="470" width="1472" alt="Image1" src="https://user-images.githubusercontent.com/13514156/120490805-54be8600-c37e-11eb-8edc-cff58960e39b.png">
+</p>
 
 * **S** - Single Responsability Principle
 * **O** - Open Closed Principle
 * **L** - Lisko Substitucion Principle
-** *I** - Interface Segregation Principle
+* **I** - Interface Segregation Principle
 * **D** - Dependency Inversion Principle
 
-![Logo](https://github.com/alejoalvarez/SOLID/blob/master/images/intro.png)
 
 ## Single Responsability Principle (SRP)
 A class should have a single function.
 
 A class should be responsible for only one thing. The moment it acquires more responsibility it becomes docked, something that is not desirable if you want to ensure the maintenance of the application. This is because changing one of your responsibilities may affect the other and vice versa.
 
-```ssh
+```java
 
 class Vehicle {
 
@@ -60,7 +70,7 @@ In other words, the SRP establishes a high degree of stiffness , so that there i
 
 One way to solve the previous example would be the following:
 
-```ssh
+```java
 
 class Vehicle {
     String brand;
@@ -91,7 +101,7 @@ Let's continue with our class **Vehicle**:
 
 If we wanted to iterate through a list of vehicles and print their marks on the screen:
 
-```ssh
+```java
 class Vehicle {  
     String brand;
 
@@ -103,7 +113,7 @@ class Vehicle {
 
 If we wanted to iterate through a list of vehicle and print their brands on the screen:
 
-```ssh
+```java
 public static void main(String[] args) {  
     Vehicle[] arrayVehicles = {
             new Vehicle("Ford"),
@@ -121,7 +131,8 @@ public static void printAveragePriceVehicle(Vehicle[] arrayVehicles){
 ```
 
 This would not fulfill the open / closed principle, since if we decide to add a new vehicle from another brand:
-```ssh
+
+```java
 Vehicle[] arrayVehicles = {  
     new Vehicle("Ford"),
     new Vehicle("Audi"),
@@ -129,7 +140,8 @@ Vehicle[] arrayVehicles = {
 };
 ```
 We would also have to modify the method that we created previously:
-```ssh
+
+```java
 public static void printAveragePriceVehicle(Vehicle[] arrayVehicle){  
     for (Vehicle vehicle : arrayVehicle) {
         if(vehicle.brand.equals("Ford")) System.out.println(18000);
@@ -143,7 +155,7 @@ As we can see, for each new car new logic would have to be added to the printAve
 
 To comply with this principle we could do the following:
 
-```ssh
+```java
 abstract class Vehicle {  
     // ...
     abstract int averagePriceVehicle();
@@ -196,7 +208,8 @@ It declares that a subclass must be substitutable for its superclass, and if by 
 Fulfilling this principle, it will be confirmed that our program has an easy to understand class hierarchy and reusable code.
 
 Let's see an example:
-```ssh
+
+```java
 // ...
 public static void printnNumbersSeats(Vehicle[] arrayVehicles){  
     for (Vehicle vehicle : arrayVeicles) {
@@ -215,7 +228,7 @@ This violates both the Liskov substitution principle and the open / closed princ
 
 Thus, if we add a new Vvehicle, the method must be modified to accept it.
 
-```ssh
+```java
 // ...
 Vehicle[] arrayVehicles = {  
         new Ford(),
@@ -245,7 +258,7 @@ If the superclass (Vehicle) has a method that accepts a parameter of the type of
 If the superclass returns a type of itself (Vehicle), then its subclass (Ford) should return a type of the superclass (Vehicle) or a type of the subclass (Ford).
 If we implement the previous method again:
 
-```ssh
+```java
 public static void printnNumbersSeats(Vehicle[] arrayVehicles){  
         for (Vehicle vehicle : arrayvehicles) {
             System.out.println(vehicle.numSeats());
@@ -257,7 +270,8 @@ printnNumbersSeats(arrayVehicles);
 Now the method doesn't care about the class's type, it just calls the superclass's numSeats () method. It only knows that the parameter is of type vehicle, either Vehicle or one of the subclasses.
 
 For this, now the Vehicle class must define the new method:
-```ssh
+
+```java
 abstract class Vehicle {
 
     // ...
@@ -265,7 +279,8 @@ abstract class Vehicle {
 }
 ```
 And the subclasses must implement such a method:
-```ssh
+
+```java
 class Ford extends Vehicle {
 
     // ...
@@ -284,7 +299,8 @@ This principle states that clients should not be forced to rely on interfaces th
 In other words, when a client depends on a class that implements an interface whose functionality this client does not use, but which other clients do use, this client will be affected by the changes that other clients force on that interface.
 
 Let's imagine that we want to define the necessary classes to house some types of birds. For example, we would have parrots, toucans, and hawks:
-```ssh
+
+```java
 interface IBird {  
     void fly();
     void eat();
@@ -316,7 +332,8 @@ class Hawk implements IBird{
 }
 ```
 So far so good. But now let's imagine we want to add the penguins. These are birds, but they also have the ability to swim. We could do this:
-```ssh
+
+```java
 interface IBird {  
     void fly();
     void eat();
@@ -364,7 +381,7 @@ The problem is that the parrot does not swim, and the penguin does not fly, so w
 
 The best thing to do would be to segregate the interfaces further, as necessary. In this case we could do the following:
 
-```ssh
+```java
 interface IBird {  
     void eat();
 }
@@ -402,6 +419,7 @@ class Penguin implements IBird, ISwimmingBird{
     }
 }
 ```
+
 Thus, each class implements the interfaces of which it really needs to implement its methods. When adding new functionalities, this will save us a lot of time, and in addition, we comply with the first principle (Single Responsibility).
 
 ## Dependency Inversion Principle (DIP)
@@ -413,7 +431,8 @@ It states that the dependencies must be in the abstractions, not in the concreti
 At some point our program or application will become made up of many modules. When this happens, it is when we must use dependency injection, which will allow us to control the functionalities from a specific place instead of having them spread throughout the program. Furthermore, this isolation will allow us to perform testing much more easily.
 
 Suppose we have a class to access data, and we do it through a DB:
-```ssh
+
+```java
 class DatabaseService{  
     //...
     void getData(){ //... }
@@ -439,7 +458,8 @@ Let's imagine that in the future we want to change the DB service for a service 
 This is because our high-level module (AccesoADatos) depends on a lower-level module (DatabaseService), thus violating the principle of dependency inversion. The high-level module should depend on abstractions.
 
 To fix this, we can make the DataAccess module depend on a more generic abstraction
-```ssh
+
+```java
 interface Connection {  
     Data getData();
     void setData();
@@ -462,7 +482,8 @@ class AccessData {
 Thus, regardless of the type of connection that is passed to the AccessData module, neither it nor its instances will have to change, so we will save a lot of work.
 
 Now, each service that we want to pass to AccessData must implement the Connection interface:
-```ssh
+
+```java
 class DatabaseService implements connection {
 
     @Override
@@ -481,4 +502,5 @@ class APIService implements Connection{
     public void setData() { //... }
 }
 ```
+
 Thus, both the high-level and low-level modules depend on abstractions, so we comply with the principle of inversion of dependencies. Furthermore, this will force us to comply with the Liskov principle, since the types derived from Connection (DatabaseService and APIService) are substitutable by their abstraction (Connection interface).
